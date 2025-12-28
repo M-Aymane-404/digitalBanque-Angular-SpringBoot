@@ -1,0 +1,167 @@
+<div class="container-fluid p-4 page-enter">
+
+  <!-- PAGE TITLE -->
+  <h3 class="mb-4 fw-bold title-animate">Accounts Management</h3>
+
+  <div class="row g-4">
+
+    <!-- ================= LEFT: ACCOUNTS LIST ================= -->
+    <div class="col-lg-8">
+
+      <!-- TOOLBAR -->
+      <div class="card-shadow p-3 mb-4 d-flex flex-wrap gap-3 align-items-center toolbar-animate">
+        <div class="flex-grow-1">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search accounts..."
+            [formControl]="searchControl"
+          >
+        </div>
+
+        <button
+          class="btn btn-mint px-4"
+          [routerLink]="['/nav/account/add/', accountsOwnerId]">
+          + New Account
+        </button>
+      </div>
+
+      <!-- TABLE -->
+      <div class="card-shadow p-3">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+          <tr>
+            <th>Account ID</th>
+            <th>Type</th>
+            <th>Balance</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+
+          <tbody>
+            @if (accounts && Array.isArray(accounts)) {
+              @for (acc of accounts; track acc.id) {
+
+                <tr
+                  class="table-row-animate"
+                  style="cursor:pointer"
+                  (click)="slectedAccount(acc)"
+                  [class.table-active]="accountSelected.id === acc.id">
+
+                  <td>{{ acc.accId }}</td>
+
+                  <td>
+                    <span
+                      class="badge"
+                      [ngClass]="acc.type === 'CC' ? 'bg-primary' : 'bg-info'">
+                      {{ acc.type === 'CC' ? 'Courant' : 'Épargne' }}
+                    </span>
+                  </td>
+
+                  <td>
+                    {{ acc.devise }} {{ acc.solde }}
+                  </td>
+
+                  <td>
+                    <span
+                      class="badge"
+                      [ngClass]="{
+                        'bg-secondary-subtle text-secondary': acc.statut === 'CREATED',
+                        'bg-success-subtle text-success': acc.statut === 'ACTIVATED',
+                        'bg-danger-subtle text-danger': acc.statut === 'SUSPENDED'
+                      }">
+                      {{ acc.statut }}
+                    </span>
+                  </td>
+
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ================= RIGHT: SELECTED ACCOUNT ================= -->
+    <div class="col-lg-4">
+      <div class="card-shadow p-4 right-panel panel-animate">
+
+        <h5 class="fw-bold mb-3">Selected Account</h5>
+
+        <div class="mb-3">
+          <h6 class="mb-1">
+            Account ID:
+            <strong>{{ accountSelected.accId }}</strong>
+          </h6>
+          <small class="text-muted">
+            {{ accountSelected.nomClient }} {{ accountSelected.prenomClient }}
+          </small>
+        </div>
+
+        <hr>
+
+        <ul class="list-unstyled">
+          <li>
+            Account Type:
+            <strong>
+              {{ accountSelected.type === 'CC' ? 'Courant' : 'Épargne' }}
+            </strong>
+          </li>
+
+          <li>
+            Current Balance:
+            <strong>
+              {{ accountSelected.devise }} {{ accountSelected.solde }}
+            </strong>
+          </li>
+
+          <li>
+            Status:
+            <strong
+              [ngClass]="{
+                'text-secondary': accountSelected.statut === 'CREATED',
+                'text-success': accountSelected.statut === 'ACTIVATED',
+                'text-danger': accountSelected.statut === 'SUSPENDED'
+              }">
+              {{ accountSelected.statut }}
+            </strong>
+          </li>
+        </ul>
+
+        <hr>
+
+        <h6 class="fw-bold">Quick Stats</h6>
+        <ul class="list-unstyled">
+          <li>
+            Date created:
+            <strong>{{ accountSelected.dateCreation }}</strong>
+          </li>
+        </ul>
+
+        <hr>
+        @if (this.authService.roles.includes("ADMIN")) {
+
+        <button
+          class="btn btn-mint w-100 mb-2"
+          [routerLink]="['/nav/account/edit/', accountSelected.id]">
+          Edit Account
+        </button>}
+
+        <button
+          class="btn btn-outline-mint w-100 mb-2"
+          [routerLink]="['/nav/transactions/', accountSelected.id]">
+          View Transactions
+        </button>
+        @if (this.authService.roles.includes("ADMIN")) {
+
+        <button
+          class="btn btn-outline-danger w-100"
+          (click)="deleteAccount(accountSelected)">
+          Delete Account
+        </button>}
+
+      </div>
+    </div>
+
+  </div>
+</div>

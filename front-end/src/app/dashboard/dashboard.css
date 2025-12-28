@@ -1,0 +1,166 @@
+/* ================= ROOT ================= */
+:root {
+  --radius: 16px;
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 14px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* ================= STAT CARDS ================= */
+.stat-card {
+  padding: 24px;
+  border-radius: var(--radius);
+  color: #fff;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+}
+
+.stat-title {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 2px 0;
+}
+
+.stat-sub {
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+/* ================= GRADIENTS ================= */
+.bg-blue {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+}
+
+.bg-mint {
+  background: linear-gradient(135deg, #14b8a6, #0f766e);
+}
+
+.bg-purple {
+  background: linear-gradient(135deg, #7c6cff, #5b4df5);
+}
+
+/* ================= CHART CARDS ================= */
+.chart-card {
+  border-radius: var(--radius);
+  height: 340px;
+  position: relative;
+}
+
+.chart-card h5 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* Make Activity visually dominant */
+.col-lg-6 .chart-card {
+  height: 360px;
+}
+
+/* Distribution slightly smaller */
+.col-lg-3 .chart-card {
+  height: 300px;
+}
+
+/* Canvas control */
+.chart-card canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ================= CARD SHADOW ================= */
+.card-shadow {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.card-shadow:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+/* ================= TRANSACTIONS ================= */
+.table {
+  margin-bottom: 0;
+}
+
+.table thead th {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #6b7280;
+}
+
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.fade-row {
+  animation: fadeInUp 0.35s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= BADGES ================= */
+.badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* ================= LINKS ================= */
+.text-mint {
+  color: #16c784;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.text-mint:hover {
+  text-decoration: underline;
+}
+.col-lg-3 .chart-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.distribution-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.distribution-card canvas {
+  max-width: 260px;
+  max-height: 260px;
+  margin: auto;
+}
+

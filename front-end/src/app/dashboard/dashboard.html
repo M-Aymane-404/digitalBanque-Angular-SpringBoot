@@ -1,0 +1,124 @@
+<div class="container-fluid p-4">
+
+  <h3 class="fw-bold mb-4">Dashboard</h3>
+
+  <!-- ===== STAT CARDS ===== -->
+  <div class="row g-4 mb-4">
+
+    <div class="col-lg-4">
+      <div class="stat-card bg-blue rounded-4">
+        <div class="stat-title">Clients</div>
+        <div class="stat-value">{{ stats?.totalClients }}</div>
+        <div class="stat-sub">Total</div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="stat-card bg-mint rounded-4">
+        <div class="stat-title">Accounts</div>
+        <div class="stat-value">{{ stats?.totalAccounts }}</div>
+        <div class="stat-sub">Active accounts</div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="stat-card bg-purple rounded-4">
+        <div class="stat-title">Global Balance</div>
+        <div class="stat-value">
+          {{ stats?.globalBalance | number:'1.0-0' }} DH
+        </div>
+        <div class="stat-sub">All accounts</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== CHARTS ===== -->
+  <div class="row g-4">
+
+    <!-- Activity (LARGE) -->
+    <div class="col-lg-8">
+      <div class="card-shadow p-4 chart-card">
+        <h5 class="fw-bold mb-3">Activity</h5>
+        <canvas #activityChart></canvas>
+      </div>
+    </div>
+
+    <!-- Distribution (SMALL) -->
+    <div class="col-lg-4">
+      <div class="card-shadow p-4 chart-card distribution-card">
+        <h5 class="fw-bold mb-3 text-center">Distribution</h5>
+        <canvas #distributionChart></canvas>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <!-- ===== LAST TRANSACTIONS ===== -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card-shadow p-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="fw-bold mb-0">Last Transactions</h5>
+
+        </div>
+
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th class="text-end">Amount</th>
+           </tr>
+          </thead>
+
+          <tbody>
+            @for (t of lastTransactions; track t.id) {
+              <tr class="fade-row">
+
+                <td>#{{ t.id }}</td>
+
+                <td class="text-muted">
+                  {{ t.dateOp | date:'dd MMM yyyy · HH:mm' }}
+                </td>
+
+                <td>
+                  <span
+                    class="badge"
+                    [ngClass]="{
+                      'bg-success': t.type === 'CREDIT',
+                      'bg-danger': t.type === 'DEBIT'
+                    }"
+                  >
+                    {{ t.type }}
+                  </span>
+                </td>
+
+                <td
+                  class="text-end fw-bold"
+                  [ngClass]="{
+                    'text-success': t.type === 'CREDIT',
+                    'text-danger': t.type === 'DEBIT'
+                  }"
+                >
+                  @if (t.type === 'DEBIT') {
+                    -
+                  }
+                  {{ t.montant | number:'1.0-0' }} DH
+                </td>
+
+
+              </tr>
+            }
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,60 @@
+<div class="container p-4 page-enter">
+
+  <h3 class="fw-bold mb-4 title-animate text-center">
+    Create New Client
+  </h3>
+
+  <div class="card-shadow p-4 col-lg-6 mx-auto form-card">
+
+    <form (ngSubmit)="createClient()">
+      <div class="row g-4">
+
+        <div class="col-md-12 field-animate">
+          <label class="form-label">First Name</label>
+          <input
+            type="text"
+            class="form-control fancy-input"
+            placeholder="Enter first name"
+            name="prenom"
+            [(ngModel)]="newClient.prenom">
+        </div>
+
+        <div class="col-md-12 field-animate delay-1">
+          <label class="form-label">Last Name</label>
+          <input
+            type="text"
+            class="form-control fancy-input"
+            placeholder="Enter last name"
+            name="nom"
+            [(ngModel)]="newClient.nom">
+        </div>
+
+        <div class="col-md-12 field-animate delay-2">
+          <label class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control fancy-input"
+            placeholder="example@email.com"
+            name="email"
+            [(ngModel)]="newClient.email">
+        </div>
+
+        <div class="col-12 d-flex justify-content-end gap-3 mt-4 actions-animate">
+          <button type="button" class="btn btn-outline-secondary"
+                  routerLink="/nav/clients" >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn btn-mint px-4"
+            [disabled]="!newClient.nom || !newClient.prenom || !newClient.email">
+            Create Client
+          </button>
+        </div>
+
+      </div>
+    </form>
+
+  </div>
+</div>

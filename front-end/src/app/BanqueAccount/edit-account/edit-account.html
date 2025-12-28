@@ -1,0 +1,83 @@
+<div class="container-fluid p-4 page-enter">
+
+  <!-- PAGE TITLE -->
+  <h3 class="fw-bold mb-4 title-animate">Edit Bank Account</h3>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+
+      <div class="card-shadow p-4 form-card">
+
+        <form (ngSubmit)="UpdateClient()">
+
+          <!-- BALANCE -->
+          <div class="mb-4 field-animate">
+            <label class="form-label">Balance</label>
+            <input
+              type="number"
+              class="form-control"
+              name="solde"
+              [(ngModel)]="accountToUpdated.solde"
+              placeholder="Enter balance"
+            >
+          </div>
+
+          <!-- STATUS -->
+          <div class="mb-4 field-animate delay-1">
+            <label class="form-label">Status</label>
+            <select
+              class="form-select"
+              name="statut"
+              [(ngModel)]="accountToUpdated.statut">
+              <option value="CREATED">CREATED</option>
+              <option value="ACTIVATED">ACTIVATED</option>
+              <option value="SUSPENDED">SUSPENDED</option>
+            </select>
+          </div>
+
+          <!-- OVERDRAFT -->
+          @if (accountToUpdated.type === 'CC') {
+            <div class="mb-4 field-animate delay-2">
+              <label class="form-label">Overdraft</label>
+              <input
+                type="number"
+                class="form-control"
+                name="decouvert"
+                [(ngModel)]="accountToUpdated.decouvert"
+                placeholder="Overdraft limit"
+              >
+            </div>
+          }
+
+          <!-- INTEREST RATE -->
+          @if (accountToUpdated.type === 'CE') {
+            <div class="mb-4 field-animate delay-2">
+              <label class="form-label">Interest Rate (%)</label>
+              <input
+                type="number"
+                class="form-control"
+                name="tauxInteret"
+                [(ngModel)]="accountToUpdated.tauxInteret"
+                placeholder="Interest rate"
+              >
+            </div>
+          }
+
+          <!-- ACTIONS -->
+          <div class="d-flex justify-content-end gap-3 mt-5 actions-animate">
+            <button type="button" class="btn btn-outline-secondary px-4" (click)="returnToAccounts()">
+              Cancel
+            </button>
+
+            <button type="submit" class="btn btn-mint px-4">
+              Save Changes
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+</div>

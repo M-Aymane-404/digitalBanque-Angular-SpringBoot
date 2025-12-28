@@ -1,0 +1,63 @@
+<div class="container p-4 page-enter">
+
+  <h3 class="fw-bold mb-4 title-animate text-center">
+    Edit Client
+  </h3>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="card-shadow p-4 form-card">
+
+        <form (ngSubmit)="UpdateClient()">
+          <div class="row g-4">
+
+            <div class="col-12 field-animate">
+              <label class="form-label">First Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="clientToUpdated.prenom"
+                name="prenom">
+            </div>
+
+            <div class="col-12 field-animate delay-1">
+              <label class="form-label">Last Name</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="clientToUpdated.nom"
+                name="nom">
+            </div>
+
+            <div class="col-12 field-animate delay-2">
+              <label class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                [(ngModel)]="clientToUpdated.email"
+                name="email">
+            </div>
+
+            <div class="col-12 d-flex justify-content-end gap-3 mt-4 actions-animate">
+              <button type="button" class="btn btn-outline-secondary"
+              routerLink="/nav/clients">
+                Cancel
+              </button>
+
+              <button
+                type="submit"
+                class="btn btn-mint px-4"
+                [disabled]="!clientToUpdated.nom || !clientToUpdated.prenom || !clientToUpdated.email">
+                Save
+              </button>
+            </div>
+
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>

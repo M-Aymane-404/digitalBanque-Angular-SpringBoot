@@ -1,0 +1,135 @@
+/* ================= PAGE ENTRY ================= */
+.page-enter {
+  animation: fadePage .45s ease forwards;
+}
+
+@keyframes fadePage {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= TITLE ================= */
+.title-animate {
+  animation: slideDown .5s ease forwards;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= CARD ================= */
+.card-shadow {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(124,108,255,.12);
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
+  transition: box-shadow .3s ease, transform .25s ease;
+}
+
+.card-shadow:hover {
+  box-shadow:
+    0 16px 40px rgba(0,0,0,.08),
+    0 0 0 3px rgba(124,108,255,.08);
+}
+
+/* ================= TOOLBAR ================= */
+.toolbar-animate {
+  animation: fadeUp .5s ease forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= INPUT ================= */
+.form-control {
+  border-radius: 12px;
+  padding: 11px 14px;
+  border: 1px solid #e4e7ec;
+  transition: border .3s ease, box-shadow .3s ease;
+}
+
+.form-control:focus {
+  border-color: #7c6cff;
+  box-shadow: 0 0 0 3px rgba(124,108,255,.18);
+}
+
+/* ================= TABLE ================= */
+.table thead th {
+  font-weight: 600;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.table-hover tbody tr {
+  transition: background .25s ease, transform .15s ease;
+}
+
+.table-hover tbody tr:hover {
+  background: rgba(124,108,255,.06);
+  transform: translateX(2px);
+}
+
+.table-hover tbody tr.table-active {
+  background: rgba(124,108,255,.12) !important;
+}
+
+/* Row animation */
+.table-row-animate {
+  animation: rowFade .35s ease forwards;
+}
+
+@keyframes rowFade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= BADGES ================= */
+.badge {
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+/* ================= BUTTONS ================= */
+.btn-mint {
+  background: linear-gradient(135deg, #7c6cff, #6a5af9);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.btn-mint:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(124,108,255,.35);
+}
+
+.btn-outline-mint {
+  border: 1px solid #7c6cff;
+  color: #7c6cff;
+  border-radius: 12px;
+  transition: background .2s ease, color .2s ease;
+}
+
+.btn-outline-mint:hover {
+  background: #7c6cff;
+  color: #fff;
+}
+
+/* ================= RIGHT PANEL ================= */
+.right-panel {
+  position: sticky;
+  top: 90px;
+}
+
+.panel-animate {
+  animation: slideRight .5s ease forwards;
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(10px); }
+  to { opacity: 1; transform: translateX(0); }
+}

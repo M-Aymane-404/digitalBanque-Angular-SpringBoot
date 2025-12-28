@@ -1,0 +1,92 @@
+<div class="container-fluid p-4 page-enter">
+
+  <h3 class="fw-bold mb-4 title-animate">Create Bank Account</h3>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+
+      <div class="card-shadow p-4 form-card">
+
+        <form (ngSubmit)="createClient()">
+
+          <!-- ACCOUNT TYPE -->
+          <div class="mb-3 field-animate">
+            <label class="form-label fw-semibold">Account Type</label>
+            <select
+              class="form-select custom-select"
+              name="type"
+              [(ngModel)]="newAccount.type">
+              <option value="CC">Current Account (CC)</option>
+              <option value="CE">Savings Account (CE)</option>
+            </select>
+
+          </div>
+
+          <!-- BALANCE -->
+          <div class="mb-3 field-animate delay-1">
+            <label class="form-label fw-semibold">Initial Balance</label>
+            <input
+              type="number"
+              class="form-control"
+              name="solde"
+              [(ngModel)]="newAccount.solde"
+              placeholder="Enter initial balance">
+          </div>
+
+          <!-- CURRENCY -->
+          <div class="mb-3 field-animate delay-2">
+            <label class="form-label fw-semibold">Currency</label>
+            <select
+              class="form-select custom-select"
+              name="devise"
+              [(ngModel)]="newAccount.devise">
+              <option value="MAD">MAD</option>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+            </select>
+
+          </div>
+
+          <!-- OVERDRAFT -->
+          @if (newAccount.type == "CC") {
+            <div class="mb-3 field-animate delay-3">
+              <label class="form-label fw-semibold">Overdraft</label>
+              <input
+                type="number"
+                class="form-control"
+                name="decouvert"
+                [(ngModel)]="newAccount.decouvert">
+            </div>
+          }
+
+          <!-- INTEREST -->
+          @if (newAccount.type == "CE") {
+            <div class="mb-3 field-animate delay-3">
+              <label class="form-label fw-semibold">Interest Rate (%)</label>
+              <input
+                type="number"
+                class="form-control"
+                name="tauxInteret"
+                [(ngModel)]="newAccount.tauxInteret">
+            </div>
+          }
+
+          <!-- ACTIONS -->
+          <div class="d-flex justify-content-end gap-3 mt-4 actions-animate">
+            <button type="button" class="btn btn-outline-secondary" (click)="returnToAccounts()">
+              Cancel
+            </button>
+
+            <button type="submit" class="btn btn-mint px-4">
+              Create Account
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

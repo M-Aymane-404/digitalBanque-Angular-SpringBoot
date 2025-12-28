@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top nav-animate">
+  <div class="container-fluid px-4">
+
+    <a class="navbar-brand fw-bold brand-glow" routerLink="/nav/dashboard">
+      AdminPanel
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#topNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="topNav">
+
+      <ul class="navbar-nav gap-1">
+        <li class="nav-item">
+          <a class="nav-link nav-link-animate" routerLink="/nav/dashboard" routerLinkActive="active">
+            Dashboard
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link nav-link-animate" routerLink="/nav/clients" routerLinkActive="active">
+            Clients
+          </a>
+        </li>
+      </ul>
+
+      <div class="dropdown user-dropdown">
+        <a
+          class="user-trigger d-flex align-items-center gap-2 text-decoration-none"
+          data-bs-toggle="dropdown"
+          aria-expanded="false">
+
+          <div class="user-avatar-animated">
+            {{ authService.username?.charAt(0) | uppercase }}
+          </div>
+
+          <span class="username-text">
+      {{ authService.username }}
+    </span>
+
+          <i class="bi bi-chevron-down arrow-icon"></i>
+        </a>
+
+        <ul class="dropdown-menu dropdown-fantastic dropdown-menu-end">
+          <li>
+            <button class="dropdown-item logout-item" (click)="handleLogout()">
+              Logout
+            </button>
+          </li>
+        </ul>
+      </div>
+
+
+    </div>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>

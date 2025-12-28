@@ -1,0 +1,57 @@
+<div class="login-wrapper">
+  <div class="login-card">
+
+    <!-- Left (branding) -->
+    <div class="login-left">
+      <h2>AdminPanel</h2>
+      <p>Secure banking dashboard</p>
+    </div>
+
+    <!-- Right (form) -->
+    <div class="login-right">
+      <h4 class="fw-bold mb-4">Sign in</h4>
+      @if (loginErrorMessage){
+
+
+      <div  class="alert alert-danger" role="alert">
+        {{ loginErrorMessage }}
+      </div>
+      }
+      <form
+        [formGroup]="formLogin"
+        (ngSubmit)="handleLogin()"
+        class="login-form"
+      >
+
+        <div class="form-group mb-3">
+          <label>Username</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="username"
+            placeholder="Enter your username"
+          />
+        </div>
+
+        <div class="form-group mb-4">
+          <label>Password</label>
+          <input
+            type="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        <button
+          class="btn btn-login w-100"
+          [disabled]="formLogin.invalid"
+        >
+          Sign in
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+</div>

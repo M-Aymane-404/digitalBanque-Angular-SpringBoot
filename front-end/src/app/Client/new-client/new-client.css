@@ -1,0 +1,97 @@
+/* Page background stays consistent */
+.container {
+  animation: fadeUp 0.4s ease forwards;
+}
+
+/* Main card */
+.card-shadow {
+  background: #ffffff;
+  border-radius: 18px;
+
+  /* Smooth border */
+  border: 1px solid rgba(124, 108, 255, 0.22);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.06),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+
+  transition: all 0.35s ease;
+}
+
+.card-shadow:hover {
+  border-color: rgba(124, 108, 255, 0.4);
+  box-shadow:
+    0 18px 40px rgba(124, 108, 255, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.75);
+}
+
+/* Labels */
+.form-label {
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+/* Inputs */
+.form-control {
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 15px;
+
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  background: #ffffff;
+
+  transition: all 0.25s ease;
+}
+
+.form-control:hover {
+  border-color: rgba(124, 108, 255, 0.35);
+}
+
+.form-control:focus {
+  border-color: #7c6cff;
+  box-shadow: 0 0 0 4px rgba(124, 108, 255, 0.18);
+  outline: none;
+}
+
+/* Buttons */
+.btn {
+  border-radius: 14px;
+  font-weight: 500;
+  padding: 10px 22px;
+  transition: all 0.25s ease;
+}
+
+.btn-mint {
+  background: linear-gradient(135deg, #7c6cff, #5b4df5);
+  color: #fff;
+  border: none;
+}
+
+.btn-mint:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(124, 108, 255, 0.35);
+}
+
+.btn-outline-secondary {
+  border: 1px solid rgba(0,0,0,0.18);
+  background: transparent;
+  color: #374151;
+}
+
+.btn-outline-secondary:hover {
+  border-color: #7c6cff;
+  color: #7c6cff;
+}
+
+/* Subtle page animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

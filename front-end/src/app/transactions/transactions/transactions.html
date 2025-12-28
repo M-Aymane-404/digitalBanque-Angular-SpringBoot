@@ -1,0 +1,120 @@
+<div class="container-fluid p-4 page-enter">
+
+  <!-- TITLE -->
+  <h3 class="fw-bold mb-4 title-animate">Transactions Management</h3>
+
+  <div class="row g-4">
+
+    <!-- LEFT -->
+    <div class="col-lg-8">
+
+      <!-- TOOLBAR -->
+      <div class="card-shadow p-3 mb-4 d-flex align-items-center gap-3 toolbar-animate">
+
+        <div class="flex-grow-1">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search transactions..."
+            [formControl]="searchControl"
+          />
+        </div>
+
+        @if (BannqueAccount.statut != "SUSPENDED"){ <button
+          class="btn btn-mint px-4"
+          [routerLink]="['/nav/transaction/add', accountsOwnerId]"
+        >
+          + New Transaction
+        </button>}
+      </div>
+
+      <!-- TABLE -->
+      <div class="card-shadow p-3 table-animate">
+
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th class="text-end">Amount</th>
+          </tr>
+          </thead>
+
+          <tbody>
+            @if (transactions && transactions.length > 0) {
+              @for (op of transactions; track op.id) {
+                <tr
+                  (click)="slectedOp(op)"
+                  style="cursor:pointer"
+                  [class.table-active]="transactionSelecter.id === op.id"
+                  class="row-animate"
+                >
+                  <td>{{ op.id }}</td>
+
+                  <td>{{ op.dateOp | date:'dd/MM/yyyy' }}</td>
+
+                  <td>
+                    <span
+                      class="badge"
+                      [ngClass]="{
+                        'bg-success-subtle text-success': op.type === 'CREDIT',
+                        'bg-danger-subtle text-danger': op.type === 'DEBIT'
+                      }"
+                    >
+                      {{ op.type }}
+                    </span>
+                  </td>
+
+                  <td
+                    class="text-end fw-bold"
+                    [ngClass]="{
+                      'text-success': op.type === 'CREDIT',
+                      'text-danger': op.type === 'DEBIT'
+                    }"
+                  >
+                    @if (op.type === 'DEBIT') { - }
+                    {{ op.montant | number:'1.2-2' }}
+                  </td>
+                </tr>
+              }
+            } @else {
+              <tr>
+                <td colspan="4" class="text-center py-4 text-muted">
+                  No transactions found
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="col-lg-4">
+
+      @if(transactionSelecter) {
+        <div class="card-shadow p-4 right-panel panel-animate">
+
+          <h5 class="fw-bold mb-3">Selected Transaction</h5>
+
+          <div class="mb-3 details-animate">
+            <div><strong>ID:</strong> {{ transactionSelecter.id }}</div>
+            <div><strong>Date:</strong> {{ transactionSelecter.dateOp | date:'dd/MM/yyyy HH:mm' }}</div>
+            <div><strong>Type:</strong> {{ transactionSelecter.type }}</div>
+            <div><strong>Amount:</strong> {{ transactionSelecter.montant | number:'1.2-2' }}</div>
+            <div><strong>Description:</strong> {{ transactionSelecter.description }}</div>
+          </div>
+
+          <hr>
+        </div>
+      } @else {
+        <div class="card-shadow p-4 text-center text-muted panel-animate">
+          Select a transaction
+        </div>
+      }
+
+    </div>
+  </div>
+</div>
