@@ -46,7 +46,7 @@ export class NewTransaction {
             this.newTransaction= {
               montant: 0,
             type: 'CREDIT' ,
-              accIdDestin:0,
+              accIdDestin:"",
               description:""
 
           };
@@ -65,7 +65,7 @@ export class NewTransaction {
             this.newTransaction= {
               montant: 0,
               type: 'CREDIT' ,
-              accIdDestin:0,
+              accIdDestin:'',
               description:""
 
             };
@@ -97,7 +97,7 @@ export class NewTransaction {
             this.newTransaction= {
               montant: 0,
               type: 'CREDIT' ,
-              accIdDestin:0,
+              accIdDestin:'',
               description:""
 
             };

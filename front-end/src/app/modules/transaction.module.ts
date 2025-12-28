@@ -4,7 +4,7 @@ export interface TransactionModule {
   dateOp?: Date;
   montant?: number;
   type: 'CREDIT' | 'DEBIT';
-  accIdDestin?:number;
+  accIdDestin?:string;
   description?:string;
 
 }
