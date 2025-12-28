@@ -106,7 +106,7 @@ public class BanqueDigitaleApplication {
 
 OperationDTO operationDTO = new OperationDTO();
 
-operationDTO.setDescription("hhhhhhhhhh");
+operationDTO.setDescription("transfert valid");
 operationDTO.setMontant(2000d);
 operationDTO.setIdCompteDestin(1L);
 
