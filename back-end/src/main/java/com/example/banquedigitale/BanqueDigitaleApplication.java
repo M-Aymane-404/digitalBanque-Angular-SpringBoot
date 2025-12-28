@@ -58,16 +58,16 @@ public class BanqueDigitaleApplication {
    // op.Virement(2L,1L,10000);
 
          ClientDTO client1 = ClientDTO.builder()
-                    .nom("jlida")
-                 .prenom("aymane")
+                    .nom("aymane")
+                 .prenom("mohamed")
                     .email("aymane@gmail.com")
                     .build();
             banqueMetier.CreateClient(client1);
 
             ClientDTO client2 = ClientDTO.builder()
-                    .nom("miloudy")
-                    .prenom("zakaria")
-                    .email("zakaria@gmail.com")
+                    .nom("ramzi")
+                    .prenom("norhane")
+                    .email("norhane@gmail.com")
                     .build();
 
             banqueMetier.CreateClient(client2);
