@@ -25,6 +25,8 @@
         <table class="table table-hover align-middle mb-0">
           <thead class="table-light">
           <tr class="ps-5">
+            <th>ID </th>
+
             <th>Last Name</th>
             <th>First Name</th>
             <th>Email</th>
@@ -40,7 +42,7 @@
                   (click)="slectedClient(c)"
                   [class.table-active]="clientSelected.id === c.id"
                   style="cursor:pointer">
-
+                  <td class="fw-semibold">{{ c.id }}</td>
                   <td class="fw-semibold">{{ c.nom }}</td>
                   <td>{{ c.prenom }}</td>
                   <td class="text-muted">{{ c.email }}</td>
