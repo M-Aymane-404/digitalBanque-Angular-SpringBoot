@@ -1,11 +1,10 @@
-import { Component,ChangeDetectorRef } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {BanqueAccountService} from '../../services/banque-account.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {BanqueAccountModule} from '../../modules/banqueAccount.module';
-import {TransactionModule} from '../../modules/transaction.module';
-import {TransactionService} from '../../services/transaction.service';
-import {NormalizedHttpError} from '../../interceptors/error.interceptor';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TransactionService } from '../../services/transaction.service';
+import { BanqueAccountService } from '../../services/banque-account.service';
+import { TransactionModule } from '../../modules/transaction.module';
+import { NormalizedHttpError } from '../../interceptors/error.interceptor';
 
 @Component({
   selector: 'app-new-transaction',
@@ -16,120 +15,83 @@ import {NormalizedHttpError} from '../../interceptors/error.interceptor';
   templateUrl: './new-transaction.html',
   styleUrl: './new-transaction.css',
 })
-export class NewTransaction {
-    loginErrorMessage: string | null = null;
+export class NewTransaction implements OnInit {
 
+  loginErrorMessage: string | null = null;
+  isInsufficient: boolean = false;
+  accountBalance: number = 0;
 
+  transtaction: string = 'Retrait';
 
-  constructor(private service:TransactionService,private route:ActivatedRoute, private router: Router,private cd :ChangeDetectorRef)  {}
-
-  transtaction:String ="Retrait";
   newTransaction: TransactionModule = {
-    type: 'CREDIT'
-
+    type: 'CREDIT',
+    montant: 0,
+    accIdDestin: '',
+    description: ''
   };
 
+  constructor(
+    private service: TransactionService,
+    private accountService: BanqueAccountService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private cd: ChangeDetectorRef
+  ) {}
 
-  createTransaction(){
+  ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    if(id){
-          this.loginErrorMessage = null;
-
-
-
-
-      if(this.transtaction == "virement"){
-        this.service.virement(this.newTransaction,id).subscribe({
-          next:()=>{
-
-            this.router.navigate(['/nav/transactions/'+id]);
-            this.newTransaction= {
-              montant: 0,
-            type: 'CREDIT' ,
-              accIdDestin:"",
-              description:""
-
-          };
-
-          },
-          error: err => console.log(err)
-
-
-        });
-      }else       if(this.transtaction == "Retrait"){
-
-        this.service.Retrait(this.newTransaction,id).subscribe({
-          next:()=>{
-
-            this.router.navigate(['/nav/transactions/'+id]);
-            this.newTransaction= {
-              montant: 0,
-              type: 'CREDIT' ,
-              accIdDestin:'',
-              description:""
-
-            };
-
-
-
-          },
-         error: (err: NormalizedHttpError | any) => {
-        if (err && typeof err.httpStatus === 'number' && err.httpStatus === 400) {
-          this.loginErrorMessage = "account is suspended or not found";
-          this.cd.detectChanges();
-          return;
-        }
-        this.loginErrorMessage = (err && typeof err.message === 'string' && err.message.trim().length > 0)
-          ? err.message
-          : 'Une erreur est survenue. Veuillez réessayer.';
-        this.cd.detectChanges();
-      }
-
-
-        });
-
-      }else  if(this.transtaction == "Versement"){
-        this.service.Versement(this.newTransaction,id).subscribe({
-          next:()=>{
-            console.log(this.newTransaction)
-
-            this.router.navigate(['/nav/transactions/'+id]);
-            this.newTransaction= {
-              montant: 0,
-              type: 'CREDIT' ,
-              accIdDestin:'',
-              description:""
-
-            };
-
-
-          },
-          error: (err: NormalizedHttpError | any) => {
-        if (err && typeof err.httpStatus === 'number' && err.httpStatus === 400) {
-          this.loginErrorMessage = "account is suspended or not found";
-          this.cd.detectChanges();
-          return;
-        }
-        this.loginErrorMessage = (err && typeof err.message === 'string' && err.message.trim().length > 0)
-          ? err.message
-          : 'Une erreur est survenue. Veuillez réessayer.';
-        this.cd.detectChanges();
-      }
-
-
-        });
-
-      }
+    if (id) {
+      this.accountService.getBanqueAccountById(id).subscribe(acc => {
+        this.accountBalance = acc.solde ?? 0;
+      });
 
     }
   }
 
-  returnToTran(){
+  checkAmount(): void {
+    if (
+      (this.transtaction === 'Retrait' || this.transtaction === 'virement') &&
+      this.newTransaction.montant! > this.accountBalance
+    ) {
+      this.isInsufficient = true;
+      this.loginErrorMessage = 'Insufficient balance';
+    } else {
+      this.isInsufficient = false;
+      this.loginErrorMessage = null;
+    }
+    this.cd.detectChanges();
+  }
+
+  createTransaction(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    if(id){
-      this.router.navigate(['/nav/transactions/'+id]);
+    if (!id || this.isInsufficient) return;
+
+    if (this.transtaction === 'virement') {
+      this.service.virement(this.newTransaction, id).subscribe({
+        next: () => this.router.navigate(['/nav/transactions/' + id]),
+        error: err => console.log(err)
+      });
+
+    } else if (this.transtaction === 'Retrait') {
+      this.service.Retrait(this.newTransaction, id).subscribe({
+        next: () => this.router.navigate(['/nav/transactions/' + id]),
+        error: (err: NormalizedHttpError | any) => {
+          this.loginErrorMessage = err.message || 'Error occurred';
+        }
+      });
+
+    } else if (this.transtaction === 'Versement') {
+      this.service.Versement(this.newTransaction, id).subscribe({
+        next: () => this.router.navigate(['/nav/transactions/' + id]),
+        error: err => console.log(err)
+      });
     }
   }
 
+  returnToTran(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (id) {
+      this.router.navigate(['/nav/transactions/' + id]);
+    }
+  }
 }
-

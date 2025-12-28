@@ -1,30 +1,28 @@
 <div class="container-fluid p-4 page-enter">
 
-  <!-- TITLE -->
   <h3 class="fw-bold mb-4 title-animate">Create Transaction</h3>
 
   <div class="row justify-content-center">
     <div class="col-lg-8">
-
       <div class="card-shadow p-4 form-card">
 
         <form (ngSubmit)="createTransaction()">
 
+          <!-- ERROR MESSAGE -->
+          @if (loginErrorMessage) {
+            <div class="alert alert-danger">
+              {{ loginErrorMessage }}
+            </div>
+          }
+
           <!-- TRANSACTION TYPE -->
-          <div class="mb-3 field-animate">
-                  @if (loginErrorMessage){
-
-
-      <div  class="alert alert-danger" role="alert">
-        {{ loginErrorMessage }}
-      </div>
-      }
+          <div class="mb-3">
             <label class="form-label fw-semibold">Transaction Type</label>
             <select
               class="form-select"
-              name="transtaction"
               [(ngModel)]="transtaction"
-            >
+              name="transtaction"
+              (change)="checkAmount()">
               <option value="virement">Virement</option>
               <option value="Retrait">Retrait</option>
               <option value="Versement">Versement</option>
@@ -32,51 +30,54 @@
           </div>
 
           <!-- AMOUNT -->
-          <div class="mb-3 field-animate delay-1">
+          <div class="mb-3">
             <label class="form-label fw-semibold">Amount</label>
             <input
               type="number"
               class="form-control"
-              name="montant"
               [(ngModel)]="newTransaction.montant"
-              placeholder="Enter amount"
-            >
+              name="montant"
+              (input)="checkAmount()"
+              placeholder="Enter amount">
           </div>
 
           <!-- DESCRIPTION -->
-          <div class="mb-3 field-animate delay-2">
+          <div class="mb-3">
             <label class="form-label fw-semibold">Description</label>
             <textarea
               class="form-control"
               rows="3"
-              name="description"
               [(ngModel)]="newTransaction.description"
-              placeholder="Transaction description"
-            ></textarea>
+              name="description">
+            </textarea>
           </div>
 
           <!-- DESTINATION ACCOUNT -->
           @if (transtaction === 'virement') {
-            <div class="mb-3 field-animate delay-3">
+            <div class="mb-3">
               <label class="form-label fw-semibold">Destination Account ID</label>
-
               <input
                 type="text"
                 class="form-control"
                 [(ngModel)]="newTransaction.accIdDestin"
-                placeholder="Enter destination account ID"
-
-                name="accIdDestin">
+                name="accIdDestin"
+                placeholder="Enter destination account ID">
             </div>
           }
 
           <!-- ACTIONS -->
-          <div class="d-flex justify-content-end gap-3 mt-4 actions-animate">
-            <button type="button" class="btn btn-outline-secondary" (click)="returnToTran()">
+          <div class="d-flex justify-content-end gap-3 mt-4">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              (click)="returnToTran()">
               Cancel
             </button>
 
-            <button type="submit" class="btn btn-mint px-4">
+            <button
+              type="submit"
+              class="btn btn-mint px-4"
+              [disabled]="isInsufficient">
               Create Transaction
             </button>
           </div>
@@ -84,8 +85,6 @@
         </form>
 
       </div>
-
     </div>
   </div>
-
 </div>
