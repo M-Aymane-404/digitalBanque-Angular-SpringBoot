@@ -4,7 +4,7 @@ import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {debounceTime, distinctUntilChanged, of, startWith, switchMap} from 'rxjs';
 import {BanqueAccountService} from '../../services/banque-account.service';
 import {BanqueAccountModule} from '../../modules/banqueAccount.module';
-import {NgClass} from '@angular/common';
+import {DatePipe, NgClass} from '@angular/common';
 import {AuthService} from '../../services/auth.service';
 
 @Component({
@@ -12,7 +12,8 @@ import {AuthService} from '../../services/auth.service';
   imports: [
     ReactiveFormsModule,
     NgClass,
-    RouterLink
+    RouterLink,
+    DatePipe
   ],
   templateUrl: './accounts.html',
   styleUrl: './accounts.css',
