@@ -46,23 +46,13 @@ export class NewTransaction {
             this.newTransaction= {
               montant: 0,
             type: 'CREDIT' ,
-              idCompteDestin:0,
+              accIdDestin:0,
               description:""
 
           };
 
           },
-          error: (err: NormalizedHttpError | any) => {
-        if (err && typeof err.httpStatus === 'number' && err.httpStatus === 400) {
-          this.loginErrorMessage = "account is suspended or not found";
-          this.cd.detectChanges();
-          return;
-        }
-        this.loginErrorMessage = (err && typeof err.message === 'string' && err.message.trim().length > 0)
-          ? err.message
-          : 'Une erreur est survenue. Veuillez réessayer.';
-        this.cd.detectChanges();
-      }
+          error: err => console.log(err)
 
 
         });
@@ -75,7 +65,7 @@ export class NewTransaction {
             this.newTransaction= {
               montant: 0,
               type: 'CREDIT' ,
-              idCompteDestin:0,
+              accIdDestin:0,
               description:""
 
             };
@@ -107,7 +97,7 @@ export class NewTransaction {
             this.newTransaction= {
               montant: 0,
               type: 'CREDIT' ,
-              idCompteDestin:0,
+              accIdDestin:0,
               description:""
 
             };

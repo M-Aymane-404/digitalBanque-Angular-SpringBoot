@@ -123,7 +123,7 @@ export class Dashboard implements AfterViewInit {
     new Chart(this.distributionChart.nativeElement, {
       type: 'doughnut',
       data: {
-        labels: ['Épargne', 'Courant'],
+        labels: ['Savings Account', 'Checking Account'],
         datasets: [{
           data: [
             this.stats.epargneAccounts,

@@ -29,9 +29,13 @@ export class TransactionService {
     return this.http.post<TransactionModule>(`http://localhost:8080/api/operations/Retrait/${id}`,tran)
   }
 
-  virement(tran:TransactionModule,id:number){
-    return this.http.post<TransactionModule>(`http://localhost:8080/api/operation/virement/${id}`,tran)
+  virement(transaction: TransactionModule, idCompte: number) {
+    return this.http.post(
+      `http://localhost:8080/api/operation/virement/${idCompte}`,
+      transaction
+    );
   }
+
 
 
 

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
-import {ClientService} from '../../services/client.service';
-import {Client} from '../../modules/client.module';
-import {FormsModule} from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { ClientService } from '../../services/client.service';
+import { Client } from '../../modules/client.module';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-new-client',
+  standalone: true,
   imports: [
     FormsModule,
     RouterLink
@@ -15,22 +16,22 @@ import {FormsModule} from '@angular/forms';
 })
 export class NewClient {
 
-  constructor(private ClientService:ClientService,private router: Router) {}
-  newClient:Client= {};
+  constructor(private clientService: ClientService, private router: Router) {}
 
-  createClient(){
-    this.ClientService.createClient(this.newClient).subscribe({
-      next:()=>{
+  newClient: Client = {};
 
+  createClient(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+
+    this.clientService.createClient(this.newClient).subscribe({
+      next: () => {
         this.router.navigate(['/nav/clients']);
-        this.newClient={};
-
-
+        this.newClient = {};
+        form.resetForm();
       },
-      error:(err: any) => console.log(err)
-
-
+      error: err => console.log(err)
     });
   }
-
 }

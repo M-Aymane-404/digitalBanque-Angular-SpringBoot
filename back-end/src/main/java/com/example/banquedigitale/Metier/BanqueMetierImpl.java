@@ -336,22 +336,29 @@ public class BanqueMetierImpl implements IBanqueMetier {
 
 
     @Override
-    public void   Virement(Long idCompteSource, OperationDTO operationDTO) throws AccountNotFoundException, AccountNotValidException, SoldNotsufficientException {
-        CompteBancaire compteSource = compteBancaireRepository.findById(idCompteSource)         .orElse(null);
+    public void Virement(Long idCompteSource, OperationDTO operationDTO)
+            throws AccountNotFoundException, AccountNotValidException, SoldNotsufficientException {
 
-
-        CompteBancaire compteDestin = compteBancaireRepository.findById(operationDTO.getIdCompteDestin())      .orElse(null);
-        if (compteDestin == null || compteSource == null) {
-            throw new AccountNotFoundException("Account Not Found ");
+        if (operationDTO.getAccIdDestin() == null || operationDTO.getAccIdDestin().isBlank()) {
+            throw new AccountNotFoundException("Destination account ID is required");
         }
 
+        CompteBancaire compteSource = compteBancaireRepository.findById(idCompteSource)
+                .orElseThrow(() -> new AccountNotFoundException("Source account not found"));
 
+        CompteBancaire compteDestin = compteBancaireRepository
+                .findByAccId(operationDTO.getAccIdDestin());
 
-        Retrait(compteSource.getId(),operationDTO);
-        Versement(compteDestin.getId(),operationDTO);
+        if (compteDestin == null) {
+            throw new AccountNotFoundException(
+                    "Destination account not found: " + operationDTO.getAccIdDestin()
+            );
+        }
 
-
+        Retrait(compteSource.getId(), operationDTO);
+        Versement(compteDestin.getId(), operationDTO);
     }
+
 
     @Override
     public ResponseEntity<Void> DeleteOperation(Long idOperation) throws TransactionNotFoundException {

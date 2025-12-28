@@ -59,13 +59,14 @@
           @if (transtaction === 'virement') {
             <div class="mb-3 field-animate delay-3">
               <label class="form-label fw-semibold">Destination Account ID</label>
+
               <input
-                type="number"
+                type="text"
                 class="form-control"
-                name="idCompteDestin"
-                [(ngModel)]="newTransaction.idCompteDestin"
+                [(ngModel)]="newTransaction.accIdDestin"
                 placeholder="Enter destination account ID"
-              >
+
+                name="accIdDestin">
             </div>
           }
 

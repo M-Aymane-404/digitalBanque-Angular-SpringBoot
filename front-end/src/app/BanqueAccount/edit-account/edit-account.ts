@@ -85,13 +85,16 @@ console.log(this.accountToUpdated)
     }
 }
 
-  returnToAccounts(){
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    if(id){
-      this.router.navigate(['/nav/accounts/'+id]);
+  returnToAccounts() {
+
+    const clientId = this.accountToUpdated.idClient;
+
+    if (clientId) {
+      this.router.navigate(['/nav/accounts', clientId]);
+    } else {
+      this.router.navigate(['/nav/dashboard']);
     }
   }
-
 
 
 }

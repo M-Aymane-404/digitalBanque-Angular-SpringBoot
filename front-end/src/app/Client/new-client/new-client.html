@@ -6,9 +6,10 @@
 
   <div class="card-shadow p-4 col-lg-6 mx-auto form-card">
 
-    <form (ngSubmit)="createClient()">
+    <form #clientForm="ngForm" (ngSubmit)="createClient(clientForm)">
       <div class="row g-4">
 
+        <!-- First Name -->
         <div class="col-md-12 field-animate">
           <label class="form-label">First Name</label>
           <input
@@ -16,9 +17,11 @@
             class="form-control fancy-input"
             placeholder="Enter first name"
             name="prenom"
-            [(ngModel)]="newClient.prenom">
+            [(ngModel)]="newClient.prenom"
+            required>
         </div>
 
+        <!-- Last Name -->
         <div class="col-md-12 field-animate delay-1">
           <label class="form-label">Last Name</label>
           <input
@@ -26,9 +29,11 @@
             class="form-control fancy-input"
             placeholder="Enter last name"
             name="nom"
-            [(ngModel)]="newClient.nom">
+            [(ngModel)]="newClient.nom"
+            required>
         </div>
 
+        <!-- Email -->
         <div class="col-md-12 field-animate delay-2">
           <label class="form-label">Email</label>
           <input
@@ -36,19 +41,35 @@
             class="form-control fancy-input"
             placeholder="example@email.com"
             name="email"
-            [(ngModel)]="newClient.email">
+            [(ngModel)]="newClient.email"
+            required
+            email
+            #email="ngModel">
+
+          <!-- Email error message -->
+          <div class="text-danger mt-1" *ngIf="email.invalid && email.touched">
+            <small *ngIf="email.errors?.['required']">
+              Email is required
+            </small>
+            <small *ngIf="email.errors?.['email']">
+              Invalid email format
+            </small>
+          </div>
         </div>
 
+        <!-- Actions -->
         <div class="col-12 d-flex justify-content-end gap-3 mt-4 actions-animate">
-          <button type="button" class="btn btn-outline-secondary"
-                  routerLink="/nav/clients" >
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            routerLink="/nav/clients">
             Cancel
           </button>
 
           <button
             type="submit"
             class="btn btn-mint px-4"
-            [disabled]="!newClient.nom || !newClient.prenom || !newClient.email">
+            [disabled]="clientForm.invalid">
             Create Client
           </button>
         </div>

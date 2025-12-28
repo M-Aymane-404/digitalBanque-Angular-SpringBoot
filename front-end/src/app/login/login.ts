@@ -52,13 +52,13 @@ export class Login implements OnInit{
       ,
       error: (err: NormalizedHttpError | any) => {
         if (err && typeof err.httpStatus === 'number' && err.httpStatus === 401) {
-          this.loginErrorMessage = "Nom d’utilisateur ou mot de passe incorrect";
+          this.loginErrorMessage = "Invalid username or password";
           this.cd.detectChanges();
           return;
         }
         this.loginErrorMessage = (err && typeof err.message === 'string' && err.message.trim().length > 0)
           ? err.message
-          : 'Une erreur est survenue. Veuillez réessayer.';
+          : 'An error has occurred. Please try again.';
         this.cd.detectChanges();
       }
     });

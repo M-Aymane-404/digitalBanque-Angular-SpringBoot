@@ -18,6 +18,8 @@ public class OperationDTO {
     private TypeOp type;
     private String description;
     private Long idCompteDestin;
+    private String accIdDestin;
+
 
 
 }
